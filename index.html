@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Это тебе Алён</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 105, 180, 0.35), transparent 20%),
+        radial-gradient(circle at 80% 30%, rgba(255, 20, 147, 0.35), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(255, 0, 120, 0.25), transparent 25%),
+        linear-gradient(135deg, #ff1493, #a00050, #4b0024);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 850px;
+      min-height: 540px;
+      background: #1b201b;
+      border-radius: 35px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .title {
+      text-align: center;
+      color: #fff;
+      font-size: 2rem;
+      padding-top: 28px;
+      letter-spacing: 2px;
+      font-family: cursive;
+    }
+
+    .garden {
+      position: relative;
+      width: 100%;
+      height: 460px;
+    }
+
+    /* Большой цветок */
+    .flower.big {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 360px;
+      animation: sway 3s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    .stem {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(0);
+      width: 10px;
+      height: 185px;
+      background: #50d36d;
+      border-radius: 10px;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 80px;
+      height: 45px;
+      background: #73db70;
+      border-radius: 100px 0 100px 0;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
+    }
+
+    .leaf.left {
+      bottom: 58px;
+      left: 60px;
+      transform: rotate(-110deg);
+    }
+
+    .leaf.right {
+      bottom: 90px;
+      right: 50px;
+      transform: rotate(100deg) scaleX(-1);
+      background: #73db70;
+      border: 2px solid #50d36d;
+    }
+
+    .tag {
+      position: absolute;
+      right: 30px;
+      bottom: 5px;
+      background: #111;
+      color: #fff;
+      padding: 7px 12px;
+      border-radius: 100px;
+      font-size: 1rem;
+      z-index: 3;
+    }
+
+    .petals {
+      position: absolute;
+      top: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 220px;
+    }
+
+    .petal {
+      position: absolute;
+      top: 50%;
+      left: 55%;
+      width: 70px;
+      height: 100px;
+      margin-left: -10px;
+      margin-top: -40px;
+      background: #ffd31c;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 221, 80, 0.35);
+      transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+      z-index: 2;
+    }
+
+    .petal:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 0 20px rgba(255, 230, 120, 0.75);
+    }
+
+    .petal:active {
+      transform: scale(0.96);
+    }
+
+    .petal1 { transform: translate(-50%, -50%) rotate(0deg) translateY(-78px); }
+    .petal2 { transform: translate(-50%, -50%) rotate(45deg) translateY(-78px); }
+    .petal3 { transform: translate(-50%, -50%) rotate(90deg) translateY(-78px); }
+    .petal4 { transform: translate(-50%, -50%) rotate(135deg) translateY(-78px); }
+    .petal5 { transform: translate(-50%, -50%) rotate(180deg) translateY(-78px); }
+    .petal6 { transform: translate(-50%, -50%) rotate(225deg) translateY(-78px); }
+    .petal7 { transform: translate(-50%, -50%) rotate(270deg) translateY(-78px); }
+    .petal8 { transform: translate(-50%, -50%) rotate(315deg) translateY(-78px); }
+
+    .center {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      width: 88px;
+      height: 88px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, #bc650e 45%, #82501d 70%, #5c3817 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 10px rgba(214,169,78,0.35);
+      z-index: 4;
+    }
+
+    /* Маленькие цветы */
+    .flower.small {
+      position: absolute;
+      bottom: 0;
+      width: 100px;
+      height: 180px;
+      animation: sway 3s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    .flower.small.left {
+      left: 23%;
+      animation-duration: 2.4s;
+    }
+
+    .flower.small.right {
+      right: 18%;
+      animation-duration: 3.5s;
+    }
+
+    .flower.small .stem {
+      height: 130px;
+      width: 5px;
+    }
+
+    .flower.small .petals {
+      top: 80px;
+      width: 55px;
+      height: 55px;
+    }
+
+    .flower.small .petals div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 28px;
+      margin-left: 0px;
+      margin-top: -40px;
+      background: #ffd31c;
+      border-radius: 100%;
+    }
+
+    .flower.small .petals div:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-22px); }
+    .flower.small .petals div:nth-child(2) { transform: translate(-50%, -50%) rotate(60deg) translateY(-22px); }
+    .flower.small .petals div:nth-child(3) { transform: translate(-50%, -50%) rotate(120deg) translateY(-22px); }
+    .flower.small .petals div:nth-child(4) { transform: translate(-50%, -50%) rotate(180deg) translateY(-22px); }
+    .flower.small .petals div:nth-child(5) { transform: translate(-50%, -50%) rotate(240deg) translateY(-22px); }
+    .flower.small .petals div:nth-child(6) { transform: translate(-50%, -50%) rotate(300deg) translateY(-22px); }
+
+    .flower.small .center {
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 0 0 4px rgba(214,169,78,0.25);
+    }
+
+    /* Модальное окно */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      animation: pop 0.25s ease;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 12px;
+      color: #c2185b;
+      font-size: 1.5rem;
+    }
+
+    .modal-content p {
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .modal-content img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 16px;
+      display: none;
+      margin-top: 10px;
+    }
+
+    .close-btn {
+      margin-top: 18px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 12px;
+      background: #ff3f86;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .close-x {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    @keyframes sway {
+      from { transform: translateX(-50%) rotate(-2deg); }
+      to { transform: translateX(-50%) rotate(2deg); }
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .flower.small.left,
+    .flower.small.right {
+      transform: none;
+    }
+
+    @media (max-width: 700px) {
+      .title {
+        font-size: 1.6rem;
+      }
+
+      .flower.big {
+        transform: translateX(-50%) scale(0.86);
+      }
+
+      @keyframes sway {
+        from { transform: translateX(-50%) scale(0.86) rotate(-2deg); }
+        to { transform: translateX(-50%) scale(0.86) rotate(2deg); }
+      }
+
+      .flower.small.left {
+        left: 10%;
+      }
+
+      .flower.small.right {
+        right: 8%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 class="title">Не грусти)</h1>
+
+    <div class="garden">
+      <!-- Маленький цветок слева -->
+      <div class="flower small left">
+        <div class="stem"></div>
+        <div class="petals">
+          <div></div><div></div><div></div>
+          <div></div><div></div><div></div>
+          <div class="center"></div>
+        </div>
+      </div>
+
+      <!-- Большой цветок -->
+      <div class="flower big">
+        <div class="stem"></div>
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+        <div class="tag">Нажми на лепестки</div>
+
+        <div class="petals">
+          <button class="petal petal1" data-type="text" data-title="Лепесток 1" data-content="Пусть каждый твой день будет наполнен теплом и улыбками 💛"></button>
+          <button class="petal petal2" data-type="text" data-title="Лепесток 2" data-content="Ты — как солнце, делаешь мир ярче ☀️"></button>
+          <button class="petal petal3" data-type="text" data-title="Лепесток 3" data-content="Желаю тебе счастья, любви и вдохновения каждый день 🌼"></button>
+          <button class="petal petal4" data-type="text" data-title="Лепесток 4" data-content="Пусть сбудется всё, о чём мечтает твоё сердце 💖"></button>
+          <button class="petal petal5" data-type="text" data-title="Лепесток 5" data-content="Спасибо, что ты есть. Ты очень особенный человек ✨"></button>
+          <button class="petal petal6" data-type="text" data-title="Лепесток 6" data-content="Пусть любовь, нежность и радость всегда будут рядом 🤍"></button>
+          <button class="petal petal7" data-type="text" data-title="Лепесток 7" data-content="Желаю тебе красивых моментов и незабываемых эмоций 🌷"></button>
+          <button class="petal petal8" data-type="text" data-title="Лепесток 8" data-content="Ты заслуживаешь только самого прекрасного 💕"></button>
+
+          <div class="center"></div>
+        </div>
+      </div>
+
+      <!-- Маленький цветок справа -->
+      <div class="flower small right">
+        <div class="stem"></div>
+        <div class="petals">
+          <div></div><div></div><div></div>
+          <div></div><div></div><div></div>
+          <div class="center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close-x" id="closeX">&times;</button>
+      <h2 id="modalTitle">Заголовок</h2>
+      <p id="modalText">Текст пожелания</p>
+      <img id="modalImg" src="" alt="Картинка" />
+      <button class="close-btn" id="closeBtn">Закрыть</button>
+    </div>
+  </div>
+
+  <script>
+    const petals = document.querySelectorAll('.petal');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalImg = document.getElementById('modalImg');
+    const closeBtn = document.getElementById('closeBtn');
+    const closeX = document.getElementById('closeX');
+
+    petals.forEach((petal) => {
+      petal.addEventListener('click', () => {
+        const type = petal.dataset.type;
+        const title = petal.dataset.title || 'Сообщение';
+        const content = petal.dataset.content || '';
+
+        modalTitle.textContent = title;
+
+        if (type === 'image') {
+          modalText.style.display = 'none';
+          modalImg.style.display = 'block';
+          modalImg.src = content;
+        } else {
+          modalImg.style.display = 'none';
+          modalImg.src = '';
+          modalText.style.display = 'block';
+          modalText.textContent = content;
+        }
+
+        modal.classList.add('show');
+      });
+    });
+
+    function closeModal() {
+      modal.classList.remove('show');
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    closeX.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
