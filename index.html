@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Это тебе Алён</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      flex: 1 1 calc(33.333% - 20px);
+      background: #f2f2f2;
+      padding: 20px;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+  <div class="container">
   <style>
     * {
       margin: 0;
@@ -11,47 +54,185 @@
       box-sizing: border-box;
     }
 
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+    }
+
     body {
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 105, 180, 0.35), transparent 20%),
-        radial-gradient(circle at 80% 30%, rgba(255, 20, 147, 0.35), transparent 25%),
-        radial-gradient(circle at 50% 80%, rgba(255, 0, 120, 0.25), transparent 25%),
-        linear-gradient(135deg, #ff1493, #a00050, #4b0024);
-      overflow: hidden;
       padding: 20px;
+      position: relative;
+      background: linear-gradient(180deg, #2c1338 0%, #5c2a68 35%, #f08bb4 100%);
     }
 
+    /* Движущийся фон */
+    .background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12), transparent 20%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.08), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,0.06), transparent 20%);
+    }
+
+    .background::before,
+    .background::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 2px, transparent 3px);
+      background-size: 120px 120px;
+      animation: moveBg 25s linear infinite;
+      opacity: 0.4;
+    }
+
+    .background::after {
+      animation-duration: 40s;
+      animation-direction: reverse;
+      opacity: 0.2;
+      transform: scale(1.2);
+    }
+
+    @keyframes moveBg {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-120px, -80px); }
+    }
+
+    /* Лепестки сакуры */
+    #petals-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .sakura-petal {
+      position: absolute;
+      top: -50px;
+      width: 26px;
+      height: 18px;
+      pointer-events: auto;
+      cursor: pointer;
+      opacity: 0.95;
+      transform-origin: center center;
+      background: radial-gradient(circle at 30% 30%, #ffdbe8, #ff9fc2 70%, #f0729f 100%);
+      border-radius: 70% 30% 70% 30%;
+      box-shadow: 0 0 8px rgba(255, 182, 193, 0.45);
+      animation-name: fall, sway, spin;
+      animation-timing-function: linear, ease-in-out, linear;
+      animation-iteration-count: infinite, infinite, infinite;
+    }
+
+    .sakura-petal::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      transform: rotate(35deg);
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0.05));
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh); }
+      to { transform: translateY(110vh); }
+    }
+
+    @keyframes sway {
+      0%   { margin-left: 0; }
+      25%  { margin-left: 20px; }
+      50%  { margin-left: -10px; }
+      75%  { margin-left: 25px; }
+      100% { margin-left: 0; }
+    }
+
+    @keyframes spin {
+      from { rotate: 0deg; }
+      to   { rotate: 360deg; }
+    }
+
+    .sakura-petal.burst {
+      animation: flyAway 0.9s ease-out forwards !important;
+      z-index: 5;
+    }
+
+    @keyframes flyAway {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      30% {
+        transform: translate(25px, -40px) scale(1.2) rotate(80deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(140px, -180px) scale(0.4) rotate(280deg);
+        opacity: 0;
+      }
+    }
+    /* Карточка */
     .card {
+      position: relative;
+      z-index: 3;
       width: 100%;
       max-width: 850px;
-      min-height: 540px;
-      background: #1b201b;
+      min-height: 580px;
+      background: rgba(27, 32, 27, 0.92);
       border-radius: 35px;
-      position: relative;
       overflow: hidden;
       box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px 0;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .title {
       text-align: center;
       color: #fff;
       font-size: 2rem;
-      padding-top: 28px;
       letter-spacing: 2px;
       font-family: cursive;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .music-btn {
+      border: none;
+      background: #ff5f99;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.25s;
+      box-shadow: 0 8px 20px rgba(255, 95, 153, 0.3);
+    }
+
+    .music-btn:hover {
+      background: #ff3f86;
+      transform: scale(1.04);
     }
 
     .garden {
       position: relative;
       width: 100%;
-      height: 460px;
+      height: 470px;
     }
-
     /* Большой цветок */
     .flower.big {
       position: absolute;
@@ -100,7 +281,7 @@
 
     .tag {
       position: absolute;
-      right: 30px;
+      right: 23px;
       bottom: 5px;
       background: #111;
       color: #fff;
@@ -341,9 +522,18 @@
   </style>
 </head>
 <body>
+  <!-- Фон -->
+  <div class="background"></div>
+
+  <!-- Лепестки сакуры -->
+  <div id="petals-container"></div>
+
   <div class="card">
     <h1 class="title">Не грусти)</h1>
-
+  <div class="card">
+    <div class="top-bar">
+      <button class="music-btn" id="toggleMusic">▶ Включить музыку</button>
+    </div>
     <div class="garden">
       <!-- Маленький цветок слева -->
       <div class="flower small left">
@@ -398,7 +588,89 @@
       <button class="close-btn" id="closeBtn">Закрыть</button>
     </div>
   </div>
+    <!-- Музыка -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+    Ваш браузер не поддерживает audio.
+  </audio>
 
+  <script>
+    /* =========================
+       1. Музыка
+    ========================= */
+    const music = document.getElementById("bgMusic");
+    const toggleMusicBtn = document.getElementById("toggleMusic");
+    let musicPlaying = false;
+
+    toggleMusicBtn.addEventListener("click", async () => {
+      try {
+        if (musicPlaying) {
+          music.pause();
+          toggleMusicBtn.textContent = "▶ Включить музыку";
+        } else {
+          await music.play();
+          toggleMusicBtn.textContent = "⏸ Выключить музыку";
+        }
+        musicPlaying = !musicPlaying;
+      } catch (error) {
+        alert("Не удалось запустить музыку. Проверь файл music.mp3");
+      }
+    });
+     /* =========================
+       3. Падающие лепестки сакуры
+    ========================= */
+    const sakuraContainer = document.getElementById("petals-container");
+
+    function createSakuraPetal() {
+      const petal = document.createElement("div");
+      petal.classList.add("sakura-petal");
+
+      const size = Math.random() * 18 + 16;
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 0.7}px`;
+      petal.style.left = `${Math.random() * window.innerWidth}px`;
+
+      const fallDuration = Math.random() * 6 + 8;
+      const swayDuration = Math.random() * 3 + 2;
+      const spinDuration = Math.random() * 5 + 4;
+      const delay = Math.random() * 5;
+
+      petal.style.animationDuration = `${fallDuration}s, ${swayDuration}s, ${spinDuration}s`;
+      petal.style.animationDelay = `${delay}s, ${delay}s, ${delay}s`;
+
+      const hue = Math.floor(Math.random() * 15);
+      petal.style.filter = `hue-rotate(${hue}deg) brightness(${0.95 + Math.random() * 0.2})`;
+
+      petal.addEventListener("click", () => {
+        if (petal.classList.contains("burst")) return;
+        petal.classList.add("burst");
+
+        setTimeout(() => {
+          petal.remove();
+          createSakuraPetal();
+        }, 900);
+      });
+
+      petal.addEventListener("animationend", (e) => {
+        if (e.animationName === "fall" && !petal.classList.contains("burst")) {
+          petal.remove();
+          createSakuraPetal();
+        }
+      });
+
+      sakuraContainer.appendChild(petal);
+    }
+
+    for (let i = 0; i < 25; i++) {
+      createSakuraPetal();
+    }
+
+    setInterval(() => {
+      if (sakuraContainer.children.length < 35) {
+        createSakuraPetal();
+      }
+    }, 1200);
+  </script>
   <script>
     const petals = document.querySelectorAll('.petal');
     const modal = document.getElementById('modal');
