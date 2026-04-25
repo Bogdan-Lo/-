@@ -1,8 +1,6 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #3b1d4a 0%, #8a4f7d 40%, #ffc1d6 100%);
 }
-
 .container {
   width: 90%;
   max-width: 1200px;
@@ -17,12 +15,13 @@ p {
   font-size: 1rem;
 }
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    font-size: 0.9rem;
-  }
+ @media (max-width: 768px) {
+      .box {
+        flex-direction: column;
+      }
+    }
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }

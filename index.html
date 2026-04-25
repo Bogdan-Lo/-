@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Это тебе Алён</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>--Для тебя Алён--</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,10 +14,10 @@
     }
 
     .container {
-      width: 90%;
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 150px;
     }
 
     .cards {
@@ -68,9 +68,8 @@
       align-items: center;
       padding: 20px;
       position: relative;
-      background: linear-gradient(180deg, #2c1338 0%, #5c2a68 35%, #f08bb4 100%);
+    background: linear-gradient(180deg, #3b1d4a 0%, #8a4f7d 40%, #ffc1d6 100%);
     }
-
     /* Движущийся фон */
     .background {
       position: fixed;
@@ -308,18 +307,18 @@
       height: 100px;
       margin-left: -10px;
       margin-top: -40px;
-      background: #ffd31c;
+      background: #fcfcfb;
       border: none;
       border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(255, 221, 80, 0.35);
+      box-shadow: 0 0 15px rgba(173, 172, 167, 0.35);
       transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
       z-index: 2;
     }
 
     .petal:hover {
       filter: brightness(1.08);
-      box-shadow: 0 0 20px rgba(255, 230, 120, 0.75);
+      box-shadow: 0 0 59px rgba(235, 234, 229, 0.75);
     }
 
     .petal:active {
@@ -337,14 +336,14 @@
 
     .center {
       position: absolute;
-      top: 35%;
+      top: 34%;
       left: 50%;
       width: 88px;
       height: 88px;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, #bc650e 45%, #82501d 70%, #5c3817 100%);
+      background: radial-gradient(circle, #ffaa00 50%, #ffaa00 70%, #db9f27d7 100%);
       border-radius: 50%;
-      box-shadow: 0 0 0 10px rgba(214,169,78,0.35);
+      box-shadow: 0 0 10px 10px #ffaa00cb;
       z-index: 4;
     }
 
@@ -352,19 +351,19 @@
     .flower.small {
       position: absolute;
       bottom: 0;
-      width: 100px;
+      width: 170px;
       height: 180px;
       animation: sway 3s ease-in-out infinite alternate;
       transform-origin: bottom center;
     }
 
     .flower.small.left {
-      left: 23%;
+      left: 38%;
       animation-duration: 2.4s;
     }
 
     .flower.small.right {
-      right: 18%;
+      right: 30px;
       animation-duration: 3.5s;
     }
 
@@ -375,8 +374,8 @@
 
     .flower.small .petals {
       top: 80px;
-      width: 55px;
-      height: 55px;
+      width: 90px;
+      height: 90px;
     }
 
     .flower.small .petals div {
@@ -387,10 +386,22 @@
       height: 28px;
       margin-left: 0px;
       margin-top: -40px;
-      background: #ffd31c;
+      background: #fcfcfb;
       border-radius: 100%;
     }
+    .flower.small .petals {
+      top: 78px;
+      width: 55px;
+      height: 55px;
+    }
 
+    .flower.small .petal {
+      width: 20px;
+      height: 28px;
+      margin-left: -10px;
+      margin-top: -14px;
+      box-shadow: none;
+    }
     .flower.small .petals div:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-22px); }
     .flower.small .petals div:nth-child(2) { transform: translate(-50%, -50%) rotate(60deg) translateY(-22px); }
     .flower.small .petals div:nth-child(3) { transform: translate(-50%, -50%) rotate(120deg) translateY(-22px); }
@@ -399,16 +410,16 @@
     .flower.small .petals div:nth-child(6) { transform: translate(-50%, -50%) rotate(300deg) translateY(-22px); }
 
     .flower.small .center {
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 0 0 4px rgba(214,169,78,0.25);
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 0 4px 7px rgba(255, 170, 0, 0.801);
     }
 
     /* Модальное окно */
     .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.55);
+      background: rgba(51, 47, 47, 0.55);
       display: none;
       justify-content: center;
       align-items: center;
@@ -512,7 +523,7 @@
       }
 
       .flower.small.left {
-        left: 10%;
+        left: 85%;
       }
 
       .flower.small.right {
@@ -554,13 +565,13 @@
 
         <div class="petals">
           <button class="petal petal1" data-type="text" data-title="Лепесток 1" data-content="Пусть каждый твой день будет наполнен теплом и улыбками 💛"></button>
-          <button class="petal petal2" data-type="text" data-title="Лепесток 2" data-content="Ты — как солнце, делаешь мир ярче ☀️"></button>
-          <button class="petal petal3" data-type="text" data-title="Лепесток 3" data-content="Желаю тебе счастья, любви и вдохновения каждый день 🌼"></button>
-          <button class="petal petal4" data-type="text" data-title="Лепесток 4" data-content="Пусть сбудется всё, о чём мечтает твоё сердце 💖"></button>
-          <button class="petal petal5" data-type="text" data-title="Лепесток 5" data-content="Спасибо, что ты есть. Ты очень особенный человек ✨"></button>
+         <button class="petal petal2" data-type="image" data-title="Ты" data-content="img/2.jpg"></button>
+          <button class="petal petal3" data-type="text" data-title="Лепесток 3" data-content="А ты любишь молочный ломтик? 😅"></button>
+          <button class="petal petal4" data-type="text" data-title="Лепесток 4" data-content="Ану не расстраивайся, а то бухать не пойдем .;)"></button>
+          <button class="petal petal5" data-type="text" data-title="Лепесток 5" data-content="Спасибо, что ты есть. Ты очень класная и хорошая ✨"></button>
           <button class="petal petal6" data-type="text" data-title="Лепесток 6" data-content="Пусть любовь, нежность и радость всегда будут рядом 🤍"></button>
-          <button class="petal petal7" data-type="text" data-title="Лепесток 7" data-content="Желаю тебе красивых моментов и незабываемых эмоций 🌷"></button>
-          <button class="petal petal8" data-type="text" data-title="Лепесток 8" data-content="Ты заслуживаешь только самого прекрасного 💕"></button>
+          <button class="petal petal7" data-type="image" data-title="А кто это у нас тут?)" data-content="img/1.jpg"></button>
+          <button class="petal petal8" data-type="text" data-title="Лепесток 8" data-content="Ты заслуживаешь только самого прекрасного, по этому не густи, а то я тебя съем 💕😋"></button>
 
           <div class="center"></div>
         </div>
@@ -590,7 +601,7 @@
   </div>
     <!-- Музыка -->
   <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg" />
+    <source src="MORGENSHTERN_PALC_-_TURN_IT_ON_61935036.mp3" type="audio/mpeg" />
     Ваш браузер не поддерживает audio.
   </audio>
 
@@ -616,6 +627,7 @@
         alert("Не удалось запустить музыку. Проверь файл music.mp3");
       }
     });
+    
      /* =========================
        3. Падающие лепестки сакуры
     ========================= */
@@ -680,7 +692,7 @@
     const closeBtn = document.getElementById('closeBtn');
     const closeX = document.getElementById('closeX');
 
-    petals.forEach((petal) => {
+   petals.forEach((petal) => {
       petal.addEventListener('click', () => {
         const type = petal.dataset.type;
         const title = petal.dataset.title || 'Сообщение';
@@ -715,6 +727,7 @@
         closeModal();
       }
     });
+
   </script>
 </body>
 </html>
